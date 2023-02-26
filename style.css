@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(to bottom, rgba(0,0,100,0.9),rgba(0,0,0,0.0)),
+    url(https://images4.alphacoders.com/843/thumb-1920-84314.jpg) top left no-repeat;
+    color: white
+}

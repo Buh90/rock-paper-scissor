@@ -1,4 +1,29 @@
 let result = "";
+let playerWins = 0;
+let computerWins = 0;
+
+
+// Creo Event Listener
+const buttons = document.querySelectorAll("button");
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", game)
+}
+
+
+//
+function game() {
+  const playerSelection = this.innerText;
+  const computerSelection = getComputerChoice();
+  playRound(playerSelection, computerSelection);
+  console.log("Player: " + playerWins + " - Computer " + computerWins)
+  if (playerWins == 3) {
+    console.log("YOU WIN!")
+  }
+  if (computerWins == 3) {
+    console.log("YOU LOSE!")
+  }
+  
+}
 
 function getComputerChoice() {
   let choice = "";
@@ -19,27 +44,27 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
-  if (
-    playerSelection !== "rock" &&
-    playerSelection !== "scissor" &&
-    playerSelection !== "paper"
-  ) {
-    result = "Scelta non valida";
-  } else if (playerSelection === computerSelection) {
+  if (playerSelection === computerSelection) {
     result = "Draw";
   } else if (
     (playerSelection === "rock" && computerSelection === "scissor") ||
     (playerSelection === "scissor" && computerSelection === "paper") ||
     (playerSelection === "paper" && computerSelection === "rock")
   ) {
+    playerWins++;
     result = "You win!";
   } else {
+    computerWins++;
     result = "You lose!";
   }
   console.log(`Player: ${playerSelection} - Computer: ${computerSelection}`);
   return result;
 }
 
+
+
+
+/*
 function game() {
   let playerWins = 0;
   let computerWins = 0;
@@ -61,3 +86,4 @@ function game() {
     return "LOSER!!!";
   }
 }
+*/
