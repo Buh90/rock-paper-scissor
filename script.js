@@ -3,8 +3,13 @@ let playerWins = 0;
 let computerWins = 0;
 
 
-// Creo Event Listener
+// Catturo gli elementi necessari
 const buttons = document.querySelectorAll("button");
+const playerResult = document.querySelector("#player");
+const computerResult = document.querySelector("#computer");
+const endGameText = document.querySelector("h2")
+
+// Creo Event Listener
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", game)
 }
@@ -12,15 +17,15 @@ for (let i = 0; i < buttons.length; i++) {
 
 //
 function game() {
-  const playerSelection = this.innerText;
+  const playerSelection = this.id;
   const computerSelection = getComputerChoice();
   playRound(playerSelection, computerSelection);
   console.log("Player: " + playerWins + " - Computer " + computerWins)
   if (playerWins == 3) {
-    console.log("YOU WIN!")
+    endGameText.innerText = "YOU WIN!"
   }
   if (computerWins == 3) {
-    console.log("YOU LOSE!")
+    endGameText.innerText = "YOU LOSE!"
   }
   
 }
@@ -43,22 +48,18 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  playerSelection = playerSelection.toLowerCase();
   if (playerSelection === computerSelection) {
-    result = "Draw";
   } else if (
     (playerSelection === "rock" && computerSelection === "scissor") ||
     (playerSelection === "scissor" && computerSelection === "paper") ||
     (playerSelection === "paper" && computerSelection === "rock")
   ) {
     playerWins++;
-    result = "You win!";
   } else {
     computerWins++;
-    result = "You lose!";
   }
-  console.log(`Player: ${playerSelection} - Computer: ${computerSelection}`);
-  return result;
+  playerResult.innerText = playerWins;
+  computerResult.innerText = computerWins;
 }
 
 

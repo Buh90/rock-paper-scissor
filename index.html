@@ -9,10 +9,26 @@
   </head>
 
   <body>
-    <h1>Harry Potter's game</h1>
-    <button>Rock</button>
-    <button>Scissor</button>
-    <button>Paper</button>
+    <div class="container">
+      <h1>Harry Potter's game</h1>
+      <div class="buttons">
+        <button id="rock" class="choice">Rock</button>
+        <button id="scissor" class="choice">Scissor</button>
+        <button id="paper" class="choice">Paper</button>
+      </div>
+
+      <section class="resultBlock">
+        <div class="playerResult">
+          <p>Harry</p>
+          <div id="player" class="resultField">0</div>
+        </div>
+        <div class="computerResult">
+          <p>Voldemort</p>
+          <div id="computer" class="resultField">0</div>
+        </div>
+      </section>
+      <h2></h2>
+    </div>
 
     <script src="script.js"></script>
   </body>
