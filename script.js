@@ -4,15 +4,19 @@ let computerWins = 0;
 
 
 // Catturo gli elementi necessari
-const buttons = document.querySelectorAll("button");
+const buttons = document.querySelectorAll(".choice");
 const playerResult = document.querySelector("#player");
 const computerResult = document.querySelector("#computer");
 const endGameText = document.querySelector("h2")
+const reset = document.getElementById("reset")
+const modalBox = document.querySelector(".modal")
 
 // Creo Event Listener
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", game)
 }
+
+reset.addEventListener("click", resetGame)
 
 
 //
@@ -22,10 +26,12 @@ function game() {
   playRound(playerSelection, computerSelection);
   console.log("Player: " + playerWins + " - Computer " + computerWins)
   if (playerWins == 3) {
+    modalBox.style.visibility = "visible"
     endGameText.innerText = "YOU WIN!"
   }
   if (computerWins == 3) {
     endGameText.innerText = "YOU LOSE!"
+    modalBox.style.visibility = "visible"
   }
   
 }
@@ -62,7 +68,14 @@ function playRound(playerSelection, computerSelection) {
   computerResult.innerText = computerWins;
 }
 
-
+function resetGame() {
+  console.log("reset");
+  playerResult.innerText = 0;
+  computerResult.innerText = 0;
+  playerWins = 0;
+  computerWins = 0;
+  modalBox.style.visibility = "hidden"
+}
 
 
 /*
