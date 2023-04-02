@@ -4,6 +4,7 @@ let computerWins = 0;
 
 
 // Catturo gli elementi necessari
+const screen = document.querySelector("body")
 const buttons = document.querySelectorAll(".choice");
 const playerResult = document.querySelector("#player");
 const computerResult = document.querySelector("#computer");
@@ -23,6 +24,7 @@ reset.addEventListener("click", resetGame)
 function game() {
   const playerSelection = this.id;
   const computerSelection = getComputerChoice();
+  screen.classList.add("shake");
   playRound(playerSelection, computerSelection);
   console.log("Player: " + playerWins + " - Computer " + computerWins)
   if (playerWins == 3) {
@@ -76,6 +78,13 @@ function resetGame() {
   computerWins = 0;
   modalBox.style.visibility = "hidden"
 }
+
+//Elimino la classe al termine dell'animazione
+screen.addEventListener("animationend", (e) => {
+  if (e.animationName === "screenshake"){
+      screen.classList.remove("shake");
+  }
+})
 
 
 /*
