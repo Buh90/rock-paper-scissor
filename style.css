@@ -1,171 +1,327 @@
+@font-face {
+  font-family: "Charlemagne";
+  src: url(./font/CHRLWRTN.TTF) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Charlemagne";
+  src: url(./font/Chrlwrtb.ttf) format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+:root {
+  --blue: rgb(0, 89, 255);
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-   
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    height: 100vh;
-    background: linear-gradient(to bottom, rgba(0,0,100,0.9),rgba(0,0,0,0.0)),
-    url(https://images4.alphacoders.com/843/thumb-1920-84314.jpg) top left no-repeat;
-    color: white;
-    position: relative;
+  height: 100vh;
+  background: linear-gradient(to bottom, rgba(0, 0, 100, 0.9), rgba(0, 0, 0, 0)),
+    url(https://images4.alphacoders.com/843/thumb-1920-84314.jpg) top left
+      no-repeat;
+  background-size: cover;
+  color: white;
+  position: relative;
 }
 
 body::before {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    display: none;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: none;
 }
 
 body.shake::before {
-    display: block;
-    animation-name: screenshakecolor;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    animation-timing-function: linear;
+  display: block;
+  animation-name: screenshakecolor;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
 }
 
 .shake {
-    animation-name: screenshake;
-    animation-duration: 0.2s;
-    animation-iteration-count: 3;
-    animation-fill-mode: forwards;
-    animation-timing-function: linear;
-}
-
-@keyframes screenshake {
-    0% {
-        top: 0px;
-        left: 0px;
-        
-    }
-    25% {
-        top: -30px;
-        left: -30px;
-    }
-    50% {
-        top: 25px;
-        left: -25px;
-    }
-    75% {
-        top: -30px;
-        left: 20px;
-    }
-    100% {
-        top: 0;
-        left: 0;
-    }
-}
-
-@keyframes screenshakecolor {
-    0% {
-        background-color: rgba(255, 255, 255, 0.8);
-    }
-    25% {
-        background-color: rgba(255, 255, 255, 0.5);    }
-    50% {
-
-    }
-    75% {
-
-    }
-    100% {
-
-    }
+  animation-name: screenshake;
+  animation-duration: 0.2s;
+  animation-iteration-count: 3;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
 }
 
 .container {
-    width: 70%;
-    min-width: 700px;
-    height: 500px;
-    padding: 3rem;
-    background-color: rgba(0,0,0,0.5);
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    position: relative;
-    top: 3rem
- }
-
-.buttons {
-    margin: 2rem
+  width: 1px;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  top: 6rem;
+  border: solid white 3px;
+  border-radius: 10px;
+  z-index: 1;
+  box-shadow: 0 0 50px 0 rgb(25, 132, 255);
+  overflow: hidden;
+  transition: 2s;
 }
 
-.choice {
-    height: 60px;
-    width: 60px;
-    margin: 0 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: white;
+.container.started {
+  animation-name: start-animation;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
 }
 
-.choice:hover {
-    box-shadow: 0 0 5px 5px royalblue;
+.container img {
+  height: 570px;
+  position: absolute;
+  top: 0;
 }
 
-.resultBlock {
-    display: flex;
-    column-gap: 100px;
+.container.winner {
+  box-shadow: 0 0 50px 0 rgb(29, 255, 59);
 }
 
-
-.playerResult, .computerResult {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.resultField {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-    border: solid white 3px;
-    border-radius: 5px 
+.container.loser {
+  box-shadow: 0 0 50px 0 rgb(255, 0, 0);
 }
 
-.modal {
-    visibility: hidden;
-   
-    position: absolute;
-    width: calc(100% - 50px);
-    height: calc(100% - 50px);
-    top: 25px;
-    left: 25px;
-    backdrop-filter: blur(10px);
-    background-color: rgba(0,0,30,0.9);
+#harry-img {
+  left: -25px;
+  border-radius: 10px 0 0 0;
 }
 
-h2 {
-    font-size: 3rem;
-    margin-top: 70px;
+#voldemort-img {
+  right: 0;
+  border-radius: 0 10px 0 0;
+}
+
+h1 {
+  font-family: "Charlemagne", arial, sans-serif;
+  font-weight: 100;
+  font-size: 3rem;
+  position: relative;
+  top: 3.5rem;
+}
+
+.svg {
+  display: block;
+  max-width: 70%;
+  max-height: 70%;
+  color: white;
+}
+
+.description {
+  width: 600px;
+  height: 100px;
+  position: relative;
+  top: 4.5rem;
+  line-height: 1.6;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.1rem;
+  visibility: hidden;
+}
+
+#play,
+#reset {
+  height: 50px;
+  border: none;
+  border-radius: 30px;
+  background-color: var(--blue);
+  font-family: "Charlemagne", arial, sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  color: white;
+  transition: 0.3s;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 4rem;
+  cursor: pointer;
+}
+
+#play:hover,
+#reset:hover {
+  background-color: white;
+  color: var(--blue);
+}
+
+#play {
+  width: 200px;
 }
 
 #reset {
-    width: 150px;
-    height: 40px;
-    position: absolute;
-    bottom: 50px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    background-color: royalblue;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 1.2rem;
-    font-weight: 600;
+  width: 300px;
 }
 
-#reset:hover {
-    background-color: rgb(40, 40, 143);
+.no-init {
+  opacity: 0;
+}
+
+#main.hidden {
+  display: none;
+}
+
+#main {
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+  position: relative;
+  top: 6rem;
+}
+
+.buttons {
+  height: 220px;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.5s;
+}
+
+h1,
+.description,
+.resultBlock {
+  pointer-events: none;
+  user-select: none;
+}
+
+.choice,
+.pc-choice {
+  height: 60px;
+  width: 60px;
+  margin: 0 10px;
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 20px 0 rgba(255, 255, 255, 0.5);
+}
+
+.choice {
+  cursor: pointer;
+}
+
+.pc-choice {
+  cursor: not-allowed;
+}
+
+.choice.selected {
+  background-color: green;
+  box-shadow: 0 0 20px 0 rgba(33, 211, 101, 0.8);
+}
+
+.pc-choice.selected {
+  background-color: red;
+  box-shadow: 0 0 20px 0 rgba(255, 28, 28, 0.8);
+}
+
+.resultBlock {
+  display: flex;
+  column-gap: 150px;
+}
+
+.playerResult,
+.computerResult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.resultField {
+  font-family: arial;
+  font-weight: 900;
+  font-size: 13rem;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* MODALE */
+
+.modal {
+  visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 30, 0.7);
+}
+
+h2 {
+  font-family: "Charlemagne", arial, sans-serif;
+  font-size: 3rem;
+  margin-top: 8rem;
+}
+
+/* ANIMAZIONI */
+
+@keyframes screenshake {
+  0% {
+    top: 0px;
+    left: 0px;
+  }
+  25% {
+    top: -30px;
+    left: -30px;
+  }
+  50% {
+    top: 25px;
+    left: -25px;
+  }
+  75% {
+    top: -30px;
+    left: 20px;
+  }
+  100% {
+    top: 0;
+    left: 0;
+  }
+}
+
+@keyframes screenshakecolor {
+  0% {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  25% {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  50% {
+  }
+  75% {
+  }
+  100% {
+  }
+}
+@keyframes start-animation {
+  0% {
+    width: 1px;
+    height: 1px;
+  }
+  50% {
+    width: 1px;
+    height: 600px;
+  }
+  100% {
+    width: 70%;
+    height: 600px;
+  }
 }

@@ -1,39 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rock - Scissor - Paper</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
 
-  <body>
-    <div class="container">
-      <h1>Harry Potter's game</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stone - Wand - Cloak</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <img id="harry-img" src="img/harry.png" alt="harry">
+    <img id="voldemort-img" src="img/voldemort.png" alt="voldemort">
+    <h1>Save the world!</h1>
+    <p class="description">Will you be able to save the magical world and defeat Lord Voldemort?|The Resurrection Stone beats the Elder Wand, the Elder Wand beats the Invisibility Cloak and the Invisibility Cloak beats the Resurrection Stone.|Win 5 rounds and become a hero!</p>
+
+    <button id="play" class="no-init">Play</button>
+
+    <div id="main" class="hidden">
       <div class="buttons">
-        <button id="rock" class="choice">Rock</button>
-        <button id="scissor" class="choice">Scissor</button>
-        <button id="paper" class="choice">Paper</button>
+        <button id="stone" class="choice">
+          <svg class="svg" viewBox="0 0 141.73 141.73">
+            <path d="m70.87,0C31.73,0,0,31.73,0,70.87s31.73,70.87,70.87,70.87,70.87-31.73,70.87-70.87S110,0,70.87,0Zm0,127.56c-31.31,0-56.69-25.38-56.69-56.69S39.56,14.17,70.87,14.17s56.69,25.38,56.69,56.69-25.38,56.69-56.69,56.69Z" fill="currentColor" />
+          </svg>
+        </button>
+        <button id="wand" class="choice">
+          <svg class="svg" viewBox="0 0 14.17 141.73">
+            <rect x="0" y="0" width="14.17" height="141.73" rx="7.09" ry="7.09" fill="currentColor" />
+          </svg>
+        </button>
+        <button id="cloak" class="choice">
+          <svg class="svg" viewBox="0 0 134.24 117.62">
+            <path d="m133.55,109.93L71.56,2.56c-1.97-3.42-6.9-3.42-8.88,0L.69,109.93c-1.97,3.42.49,7.69,4.44,7.69h123.98c3.95,0,6.41-4.27,4.44-7.69Zm-112.74-6.48L67.12,23.22l46.32,80.22H20.8Z" fill="currentColor" />
+          </svg>
+        </button>
       </div>
 
       <section class="resultBlock">
-        <div class="playerResult">
-          <p>Harry</p>
-          <div id="player" class="resultField">0</div>
-        </div>
-        <div class="computerResult">
-          <p>Voldemort</p>
-          <div id="computer" class="resultField">0</div>
-        </div>
+        <div id="player" class="resultField">0</div>
+        <div id="computer" class="resultField">0</div>
       </section>
 
-      <div class="modal">
-        <h2>fsdfsdf</h2>
-        <button id="reset">PLAY AGAIN</button>
+      <div class="buttons">
+        <div class="pc-choice" data-type="stone">
+          <svg class="svg" viewBox="0 0 141.73 141.73">
+            <path d="m70.87,0C31.73,0,0,31.73,0,70.87s31.73,70.87,70.87,70.87,70.87-31.73,70.87-70.87S110,0,70.87,0Zm0,127.56c-31.31,0-56.69-25.38-56.69-56.69S39.56,14.17,70.87,14.17s56.69,25.38,56.69,56.69-25.38,56.69-56.69,56.69Z" fill="currentColor" />
+          </svg>
+        </div>
+
+        <div class="pc-choice" data-type="wand">
+          <svg class="svg" viewBox="0 0 14.17 141.73">
+            <rect x="0" y="0" width="14.17" height="141.73" rx="7.09" ry="7.09" fill="currentColor" />
+          </svg>
+        </div>
+
+        <div class="pc-choice" data-type="cloak">
+          <svg class="svg" viewBox="0 0 134.24 117.62">
+            <path d="m133.55,109.93L71.56,2.56c-1.97-3.42-6.9-3.42-8.88,0L.69,109.93c-1.97,3.42.49,7.69,4.44,7.69h123.98c3.95,0,6.41-4.27,4.44-7.69Zm-112.74-6.48L67.12,23.22l46.32,80.22H20.8Z" fill="currentColor" />
+          </svg>
+        </div>
       </div>
+
     </div>
 
-    <script src="script.js"></script>
-  </body>
+    <div class="modal">
+      <h2></h2>
+      <button id="reset">PLAY AGAIN</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
 </html>

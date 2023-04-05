@@ -1,41 +1,85 @@
+// Imposto le variabili di partenza
+
 let result = "";
 let playerWins = 0;
 let computerWins = 0;
 
-
 // Catturo gli elementi necessari
-const screen = document.querySelector("body")
+const screen = document.querySelector("body");
+const container = document.querySelector(".container");
+const mainBox = document.getElementById("main");
+const playButton = document.getElementById("play");
 const buttons = document.querySelectorAll(".choice");
+const pcButtons = document.querySelectorAll(".pc-choice");
+const textBox = document.querySelector(".description");
 const playerResult = document.querySelector("#player");
 const computerResult = document.querySelector("#computer");
-const endGameText = document.querySelector("h2")
-const reset = document.getElementById("reset")
-const modalBox = document.querySelector(".modal")
+const endGameText = document.querySelector("h2");
+const reset = document.getElementById("reset");
+const modalBox = document.querySelector(".modal");
+const text = textBox.textContent;
 
 // Creo Event Listener
 for (let i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener("click", game)
+  buttons[i].addEventListener("click", game);
 }
 
-reset.addEventListener("click", resetGame)
+// Animazione caricamento pagina
 
+startAnimation();
 
-//
-function game() {
+async function startAnimation() {
+  await delay(500);
+  container.classList.add("started");
+  initializeText();
+}
+
+async function initializeText() {
+  textBox.textContent = "";
+  textBox.style.visibility = "visible";
+  await delay(2500);
+  printText(text);
+}
+
+playButton.addEventListener("click", function () {
+  console.log("Funziona!");
+  this.classList.add("no-init");
+  mainBox.classList.remove("hidden");
+});
+
+// Dinamica di gioco
+async function game() {
   const playerSelection = this.id;
   const computerSelection = getComputerChoice();
+  this.classList.add("selected");
+
+  for (let i = 0; i < buttons.length; i++) {
+    if (pcButtons[i].getAttribute("data-type") === computerSelection) {
+      pcButtons[i].classList.add("selected");
+    }
+  }
+
   screen.classList.add("shake");
+  await delay(500);
   playRound(playerSelection, computerSelection);
-  console.log("Player: " + playerWins + " - Computer " + computerWins)
-  if (playerWins == 3) {
-    modalBox.style.visibility = "visible"
-    endGameText.innerText = "YOU WIN!"
+  if (playerWins == 5) {
+    modalBox.style.visibility = "visible";
+    endGameText.innerText = "YOU WIN!";
+    container.classList.add("winner");
   }
-  if (computerWins == 3) {
-    endGameText.innerText = "YOU LOSE!"
-    modalBox.style.visibility = "visible"
+  if (computerWins == 5) {
+    endGameText.innerText = "YOU LOSE!";
+    modalBox.style.visibility = "visible";
+    container.classList.add("loser");
   }
-  
+  await delay(800);
+  this.classList.remove("selected");
+
+  for (let i = 0; i < buttons.length; i++) {
+    if (pcButtons[i].getAttribute("data-type") === computerSelection) {
+      pcButtons[i].classList.remove("selected");
+    }
+  }
 }
 
 function getComputerChoice() {
@@ -43,24 +87,43 @@ function getComputerChoice() {
   let randomNumber = Math.floor(Math.random() * 3) + 1;
   switch (randomNumber) {
     case 1:
-      choice = "rock";
+      choice = "stone";
       break;
     case 2:
-      choice = "scissor";
+      choice = "wand";
       break;
     case 3:
-      choice = "paper";
+      choice = "cloak";
       break;
   }
   return choice;
 }
 
+function printText(text) {
+  if (text !== "") {
+    let char = document.createElement("span");
+    let newLine = document.createElement("br");
+    char.innerText = text[0];
+    if (char.innerText === "|") {
+      textBox.appendChild(newLine);
+    } else {
+      textBox.appendChild(char);
+    }
+    timer = setTimeout(() => {
+      printText(text.slice(1));
+    }, 30);
+  } else {
+    isAnimating = false;
+    playButton.classList.remove("no-init");
+  }
+}
+
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
   } else if (
-    (playerSelection === "rock" && computerSelection === "scissor") ||
-    (playerSelection === "scissor" && computerSelection === "paper") ||
-    (playerSelection === "paper" && computerSelection === "rock")
+    (playerSelection === "stone" && computerSelection === "wand") ||
+    (playerSelection === "wand" && computerSelection === "cloak") ||
+    (playerSelection === "cloak" && computerSelection === "stone")
   ) {
     playerWins++;
   } else {
@@ -70,43 +133,25 @@ function playRound(playerSelection, computerSelection) {
   computerResult.innerText = computerWins;
 }
 
+reset.addEventListener("click", resetGame);
+
 function resetGame() {
-  console.log("reset");
   playerResult.innerText = 0;
   computerResult.innerText = 0;
   playerWins = 0;
   computerWins = 0;
-  modalBox.style.visibility = "hidden"
+  modalBox.style.visibility = "hidden";
+  container.classList.remove("winner");
+  container.classList.remove("loser");
+}
+
+function delay(ms) {
+  return new Promise((action) => setTimeout(action, ms));
 }
 
 //Elimino la classe al termine dell'animazione
 screen.addEventListener("animationend", (e) => {
-  if (e.animationName === "screenshake"){
-      screen.classList.remove("shake");
+  if (e.animationName === "screenshake") {
+    screen.classList.remove("shake");
   }
-})
-
-
-/*
-function game() {
-  let playerWins = 0;
-  let computerWins = 0;
-  for (let i = 0; i < 5; i++) {
-    const playerSelection = prompt("Rock, scissor or paper?");
-    const computerSelection = getComputerChoice();
-    playRound(playerSelection, computerSelection);
-    console.log(result);
-    if (result === "You win!") {
-      playerWins++;
-    } else if (result === "You lose!") {
-      computerWins++;
-    }
-    console.log(playerWins, computerWins);
-  }
-  if (playerWins > computerWins) {
-    return "WINNER!!!";
-  } else {
-    return "LOSER!!!";
-  }
-}
-*/
+});
