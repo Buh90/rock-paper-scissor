@@ -73,7 +73,7 @@ body.shake::before {
   z-index: 1;
   box-shadow: 0 0 50px 0 rgb(25, 132, 255);
   overflow: hidden;
-  transition: 2s;
+  /* transition: 2s; */
 }
 
 .container.started {
@@ -266,6 +266,34 @@ h1,
   background-color: rgba(0, 0, 30, 0.7);
 }
 
+#loser-img {
+  height: 100%;
+  position: absolute;
+  right: -1200px;
+}
+
+#loser-img.loser {
+  animation-name: winner-vold;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-delay: 500ms;
+}
+
+#winner-img {
+  height: 100%;
+  position: absolute;
+  left: -1200px;
+}
+
+#winner-img.winner {
+  animation-name: winner-harry;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-delay: 500ms;
+}
+
 h2 {
   font-family: "Charlemagne", arial, sans-serif;
   font-size: 3rem;
@@ -311,6 +339,7 @@ h2 {
   100% {
   }
 }
+
 @keyframes start-animation {
   0% {
     width: 1px;
@@ -323,5 +352,23 @@ h2 {
   100% {
     width: 70%;
     height: 600px;
+  }
+}
+
+@keyframes winner-vold {
+  0% {
+    right: -1200px;
+  }
+  100% {
+    right: 0;
+  }
+}
+
+@keyframes winner-harry {
+  0% {
+    left: -1200px;
+  }
+  100% {
+    left: 0;
   }
 }

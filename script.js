@@ -3,6 +3,7 @@
 let result = "";
 let playerWins = 0;
 let computerWins = 0;
+let isAnimating = false;
 
 // Catturo gli elementi necessari
 const screen = document.querySelector("body");
@@ -42,42 +43,47 @@ async function initializeText() {
 }
 
 playButton.addEventListener("click", function () {
-  console.log("Funziona!");
   this.classList.add("no-init");
   mainBox.classList.remove("hidden");
 });
 
 // Dinamica di gioco
 async function game() {
-  const playerSelection = this.id;
-  const computerSelection = getComputerChoice();
-  this.classList.add("selected");
+  if (!isAnimating) {
+    isAnimating = true;
+    const playerSelection = this.id;
+    const computerSelection = getComputerChoice();
+    this.classList.add("selected");
 
-  for (let i = 0; i < buttons.length; i++) {
-    if (pcButtons[i].getAttribute("data-type") === computerSelection) {
-      pcButtons[i].classList.add("selected");
+    for (let i = 0; i < buttons.length; i++) {
+      if (pcButtons[i].getAttribute("data-type") === computerSelection) {
+        pcButtons[i].classList.add("selected");
+      }
     }
-  }
 
-  screen.classList.add("shake");
-  await delay(500);
-  playRound(playerSelection, computerSelection);
-  if (playerWins == 5) {
-    modalBox.style.visibility = "visible";
-    endGameText.innerText = "YOU WIN!";
-    container.classList.add("winner");
-  }
-  if (computerWins == 5) {
-    endGameText.innerText = "YOU LOSE!";
-    modalBox.style.visibility = "visible";
-    container.classList.add("loser");
-  }
-  await delay(800);
-  this.classList.remove("selected");
-
-  for (let i = 0; i < buttons.length; i++) {
-    if (pcButtons[i].getAttribute("data-type") === computerSelection) {
-      pcButtons[i].classList.remove("selected");
+    await delay(500);
+    playRound(playerSelection, computerSelection);
+    if (playerWins == 5) {
+      modalBox.style.visibility = "visible";
+      endGameText.innerText = "YOU WIN!";
+      container.classList.add("winner");
+      screen.classList.add("shake");
+      modalBox.childNodes[5].classList.add("winner");
+    }
+    if (computerWins == 5) {
+      endGameText.innerText = "YOU LOSE!";
+      modalBox.style.visibility = "visible";
+      container.classList.add("loser");
+      screen.classList.add("shake");
+      modalBox.childNodes[3].classList.add("loser");
+    }
+    await delay(800);
+    this.classList.remove("selected");
+    isAnimating = false;
+    for (let i = 0; i < buttons.length; i++) {
+      if (pcButtons[i].getAttribute("data-type") === computerSelection) {
+        pcButtons[i].classList.remove("selected");
+      }
     }
   }
 }
@@ -113,7 +119,6 @@ function printText(text) {
       printText(text.slice(1));
     }, 30);
   } else {
-    isAnimating = false;
     playButton.classList.remove("no-init");
   }
 }
@@ -143,6 +148,8 @@ function resetGame() {
   modalBox.style.visibility = "hidden";
   container.classList.remove("winner");
   container.classList.remove("loser");
+  modalBox.childNodes[3].classList.remove("loser");
+  modalBox.childNodes[5].classList.remove("winner");
 }
 
 function delay(ms) {
